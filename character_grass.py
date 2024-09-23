@@ -1,3 +1,4 @@
+import math
 from pico2d import *
 
 open_canvas()
@@ -5,21 +6,74 @@ open_canvas()
 grass = load_image('grass.png')
 character = load_image('character.png')
 
-x = 0
-while(x<800):
+x = 400
+y= 90
+
+tri = True
+
+cir = False
+
+right = True
+up = False
+down = False
+
+cirCenterX = 400
+cirCenterY = 400
+cirRadius = 200
+
+while(1):
     clear_canvas_now()
-    grass.draw_now(400,30)
-    character.draw_now(x,90)
     
-    x+=15 #게임 로직 부분.. 객체의 상호작용을 시뮬레이션
-    delay(0.01)
+    grass.draw_now(400,30)
+    character.draw_now(x,y)
 
-close_canvas()
+    if(cir):
+        for theta in range(0,360):
+            x = (cirCenterX + cirRadius*math.cos(math.radians(theta)))
+            y = (cirCenterY + cirRadius*math.sin(math.radians(theta)))
+            clear_canvas_now()
+            grass.draw_now(400,30)
+            character.draw_now(x,y)
+        cir = False
+        tri = True
+        right = True
+        x = 400
+        y= 90
 
-#게임루프는 시뮬레이션(로직)과 렌더링의 반복
+    if(tri):
 
-#JPG는 투명화사진이 x... PNG는 가능
-#jpg는 손실압축. png는 비손실압축
-#jpg는 일부러 화질을 안좋게해서 압축시킴
-#png는 원래 화질을 유지하면서 파일 사이즈는 좀 커도 화질은 유지 ㄱㄴ
-#png를 써야.. 화질이 유지(퀄리티 위해서)! 배경은 jpg가능 
+        if(right):
+            if(x>700):
+                up =True
+                right = False
+            if(x==380):
+                tri=False
+                cir=True
+                right = False
+            else:
+                x+=10
+                delay(0.01)
+
+        if(up):
+            if(x<=400 and y>=200):
+                up = False
+                down = True
+            else:
+                x-=10
+                y+=15
+                delay(0.01)
+    
+        if(down):
+            if(x<=0 and y<=90):
+                down = False
+                right = True
+                y=90
+            else:
+                x-=10
+                y-=15
+                delay(0.01)
+
+                
+
+    
+        
