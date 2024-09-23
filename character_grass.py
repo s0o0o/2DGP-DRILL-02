@@ -10,7 +10,6 @@ x = 400
 y= 90
 
 tri = True
-
 cir = False
 
 right = True
@@ -21,7 +20,7 @@ cirCenterX = 400
 cirCenterY = 400
 cirRadius = 200
 
-while(1):
+while(True):
     clear_canvas_now()
     
     grass.draw_now(400,30)
@@ -40,7 +39,7 @@ while(1):
         x = 400
         y= 90
 
-    if(tri):
+    else if(tri):
 
         if(right):
             if(x>700):
