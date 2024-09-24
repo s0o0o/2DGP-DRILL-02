@@ -39,7 +39,7 @@ while(True):
         x = 400
         y= 90
 
-    else if(tri):
+    elif(tri):
 
         if(right):
             if(x>700):
